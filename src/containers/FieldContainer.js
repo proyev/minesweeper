@@ -12,11 +12,11 @@ function FieldContainer() {
     }
     const [field, setField] = useState(generateField());
 
-    useEffect(
-        for (cell in field){
-            cell.addEventListener('')
-        }
-        , []);
+    // useEffect(
+    //     for (cell in field){
+    //         cell.addEventListener('')
+    //     }
+    //     , []);
 
     const handleClick = index => {
         const updatedField = field.slice();
