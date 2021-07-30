@@ -1,12 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Zen+Tokyo+Zoo&display=swap');
 
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
 .App {
-  text-align: center;
+  align-items: center;
+  background-color: #282c34;
+  display: flex;
+  flex-direction: column;
   font-family: 'Zen Tokyo Zoo', cursive;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 32px;
   pointer-events: none;
 }
 
@@ -17,19 +29,55 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: 32px;
   color: white;
 }
 
 .App-link {
   color: #61dafb;
 }
+
+.cell {
+  border-radius: 3px;
+  background-color: #101112;
+  filter: drop-shadow(0 0 0.1rem black);
+  height: 30px;
+  margin: 2px;
+  width: 30px;
+}
+
+.field {
+  align-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  width: 300px;
+  height: 280px;
+  justify-content: center;
+  margin: 10px;
+}
+
+.status-bar {
+  align-content: space-evenly;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.game-container {
+  align-content: space-evenly;
+  background-color: #282c34;
+  border-radius: 10px;
+  display: flex;
+  filter: drop-shadow(0 0 0.75rem crimson);
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin: 10px;
+  max-width: 400px;
+  max-height: 450px;
+  min-width: 400px;
+  min-height: 450px;
+}
+
 
 @keyframes App-logo-spin {
   from {
