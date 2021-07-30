@@ -1,5 +1,5 @@
 import './App.css';
-import Field from './components/Field';
+import FieldContainer from './containers/FieldContainer';
 import ControlPanel from './components/ControlPanel';
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
     <div className="App">
       <div className="game-container">
           <ControlPanel />
-          <Field />
+          <FieldContainer />
       </div>
     </div>
   );

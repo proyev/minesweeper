@@ -46,6 +46,19 @@
   width: 30px;
 }
 
+.cell:hover{
+  filter: drop-shadow(0 0 0.5rem #4444dd);
+}
+
+.fired {
+  border-radius: 3px;
+  background-color: #282c34;
+  filter: drop-shadow(0 0 0.1rem crimson);
+  height: 30px;
+  margin: 2px;
+  width: 30px;
+}
+
 .field {
   align-content: center;
   display: flex;
