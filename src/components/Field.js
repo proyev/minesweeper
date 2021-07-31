@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import logo from '../logo.svg';
 
 function Field(props) {
 
@@ -46,9 +47,19 @@ function Field(props) {
     }
     
     return (
-        <main className="field">
-            {renderField()}
-        </main>
+        <>
+            <header className="App-header">
+                <p>Minesweeper <img src={logo} className="App-logo" alt="logo" /></p>
+                <p className="status-bar">
+                    <span className="bombs-counter">{props.counter}</span>
+                    <button className="reset">Reset</button>
+                    <span className="timer">0:00</span>
+                </p>
+            </header>
+            <main className="field">
+                {renderField()}
+            </main>
+        </>
     );
 }
 

@@ -11,6 +11,7 @@ function FieldContainer() {
         return field;
     }
     const [field, setField] = useState(generateField());
+    const [counter, setCounter] = useState(10);
 
     const handleClick = (event, index) => {
         event.preventDefault();
@@ -36,6 +37,7 @@ function FieldContainer() {
             <Field handleClick={handleClick}
                    handleRightClick={handleRightClick}
                    field={field}
+                   counter={counter}
             />
         </>
     );
