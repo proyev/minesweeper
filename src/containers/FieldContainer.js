@@ -12,6 +12,11 @@ function FieldContainer() {
     }
     const [field, setField] = useState(generateField());
     const [counter, setCounter] = useState(10);
+    const [time, setTime] = useState('0:00');
+
+    useEffect(() => {
+
+    }, []);
 
     const handleClick = (event, index) => {
         event.preventDefault();
@@ -28,8 +33,16 @@ function FieldContainer() {
     const handleRightClick = (event, index) => {
         event.preventDefault();
         const updatedField = field.slice();
-        updatedField[index] = 'F';
-        setField(updatedField);
+        if(updatedField[index] === 'F') {
+            updatedField[index] = null;
+            setField(updatedField);
+            setCounter(prev => prev + 1);
+        }else if (counter > 0) {
+            updatedField[index] = 'F';
+            setField(updatedField);
+            setCounter(prev => prev - 1);
+        }
+
     }
     
     return (
@@ -38,6 +51,7 @@ function FieldContainer() {
                    handleRightClick={handleRightClick}
                    field={field}
                    counter={counter}
+                   time={time}
             />
         </>
     );

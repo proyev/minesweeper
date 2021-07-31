@@ -27,6 +27,7 @@ function Field(props) {
                     return (
                         <div key={index}
                              className="target"
+                             onContextMenu={(event) => props.handleRightClick(event, index)}
                         >
                         </div>
                     );
@@ -53,7 +54,7 @@ function Field(props) {
                 <p className="status-bar">
                     <span className="bombs-counter">💣{props.counter}</span>
                     <button className="reset">🙂</button>
-                    <span className="timer">0:00</span>
+                    <span className="timer">{props.time}</span>
                 </p>
             </header>
             <main className="field">
