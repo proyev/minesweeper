@@ -65,7 +65,18 @@
   background-color: #7a0202;
   background-image: url("fired.svg");
   background-size: contain;
-  filter: drop-shadow(0 0 0.1rem black);
+  filter: drop-shadow(0 0 0.1rem crimson);
+  height: 30px;
+  margin: 2px;
+  width: 30px;
+}
+
+.target {
+  border-radius: 3px;
+  background-color: #101112;
+  background-image: url("target.svg");
+  background-size: contain;
+  filter: drop-shadow(0 0 0.1rem crimson);
   height: 30px;
   margin: 2px;
   width: 30px;

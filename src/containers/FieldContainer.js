@@ -12,13 +12,8 @@ function FieldContainer() {
     }
     const [field, setField] = useState(generateField());
 
-    // useEffect(
-    //     for (cell in field){
-    //         cell.addEventListener('')
-    //     }
-    //     , []);
-
-    const handleClick = index => {
+    const handleClick = (event, index) => {
+        event.preventDefault();
         const updatedField = field.slice();
         if (updatedField[index] === 'M') {
             console.log('YOU LOST');
@@ -29,13 +24,17 @@ function FieldContainer() {
         setField(updatedField);
     }
 
-    // const handleRightClick = () => {
-    //
-    // }
+    const handleRightClick = (event, index) => {
+        event.preventDefault();
+        const updatedField = field.slice();
+        updatedField[index] = 'F';
+        setField(updatedField);
+    }
     
     return (
         <>
             <Field handleClick={handleClick}
+                   handleRightClick={handleRightClick}
                    field={field}
             />
         </>

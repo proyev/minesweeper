@@ -22,18 +22,26 @@ function Field(props) {
                         </div>
                     );
                 }
+                case 'F': {
+                    return (
+                        <div key={index}
+                             className="target"
+                        >
+                        </div>
+                    );
+                }
                 default: {
                     return (
                         <div key={index}
                              className="cell"
-                             onClick={() => props.handleClick(index)}
+                             onClick={(event) => props.handleClick(event, index)}
+                             onContextMenu={(event) => props.handleRightClick(event, index)}
                         ></div>
                     );
                     break;
                 }
             }
         });
-
         return cells;
     }
     
