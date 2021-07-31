@@ -51,8 +51,8 @@ function Field(props) {
             <header className="App-header">
                 <p>Minesweeper <img src={logo} className="App-logo" alt="logo" /></p>
                 <p className="status-bar">
-                    <span className="bombs-counter">{props.counter}</span>
-                    <button className="reset">Reset</button>
+                    <span className="bombs-counter">💣{props.counter}</span>
+                    <button className="reset">🙂</button>
                     <span className="timer">0:00</span>
                 </p>
             </header>

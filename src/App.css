@@ -38,6 +38,11 @@
   color: #61dafb;
 }
 
+.reset {
+  background: none;
+  border: none;
+}
+
 .cell {
   border-radius: 3px;
   background-color: #101112;
