@@ -1,11 +1,11 @@
 import './App.css';
-import FieldContainer from './containers/FieldContainer';
+import GameContainer from './containers/GameContainer';
 
 function App() {
   return (
     <div className="App">
       <div className="game-container">
-          <FieldContainer />
+          <GameContainer />
       </div>
     </div>
   );
