@@ -57,11 +57,17 @@
 }
 
 .open {
+  align-items: center;
   border-radius: 3px;
   background-color: #282c34;
+  color: crimson;
+  display: flex;
   filter: drop-shadow(0 0 0.1rem crimson);
+  font-size: 28px;
+  justify-content: center;
   height: 30px;
   margin: 2px;
+  padding-bottom: 7px;
   width: 30px;
 }
 
