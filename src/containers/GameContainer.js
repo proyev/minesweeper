@@ -55,6 +55,9 @@ function GameContainer() {
     const updateField = (fieldCopy, index) => {
         if (fieldCopy[index] === 'M') {
             fieldCopy[index] = 'MO';
+            if (time === 0) {
+                setGameStart(false);
+            }
             setGameStart(false);
         } else if(fieldCopy[index] === 0) {
             if (fieldCopy[index][1] !== 'O') {
@@ -100,13 +103,21 @@ function GameContainer() {
             setField(updatedField);
             setCounter(prev => prev - 1);
         }
+    }
 
+    const handleReset = (event) => {
+        event.preventDefault();
+        setTime(0);
+        setGameStart(false);
+        setField(generateField());
+        setCounter(10);
     }
     
     return (
         <>
-            <Game handleClick={handleClick}
+            <Game  handleClick={handleClick}
                    handleRightClick={handleRightClick}
+                   handleReset={handleReset}
                    field={field}
                    counter={counter}
                    time={time}

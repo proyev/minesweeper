@@ -59,7 +59,7 @@ function Game(props) {
                 <p>Minesweeper <img src={logo} className="App-logo" alt="logo" /></p>
                 <p className="status-bar">
                     <span className="bombs-counter">💣{props.counter}</span>
-                    <button className="reset">🙂</button>
+                    <button className="reset" onClick={props.handleReset}>🙂</button>
                     <span className="timer">{String(min)}:{renderSeconds(sec)}</span>
                 </p>
             </header>
