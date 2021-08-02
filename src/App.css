@@ -38,9 +38,45 @@
   color: #61dafb;
 }
 
+.status-bar {
+  align-content: space-evenly;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.bombs-counter {
+  font-size: 30px;
+}
+
 .reset {
   background: none;
   border: none;
+  font-size: 24px;
+}
+
+.reset:hover {
+  cursor: pointer;
+  filter: drop-shadow(0 0 0.5rem #4444dd);
+}
+
+.timer {
+  font-size: 30px;
+}
+
+.game-container {
+  align-content: space-evenly;
+  background-color: #282c34;
+  border-radius: 10px;
+  display: flex;
+  filter: drop-shadow(0 0 0.75rem crimson);
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin: 10px;
+  max-width: 400px;
+  max-height: 450px;
+  min-width: 400px;
+  min-height: 450px;
 }
 
 .cell {
@@ -50,11 +86,6 @@
   height: 30px;
   margin: 2px;
   width: 30px;
-}
-
-.reset:hover {
-  cursor: pointer;
-  filter: drop-shadow(0 0 0.5rem #4444dd);
 }
 
 .cell:hover{
@@ -107,29 +138,6 @@
   justify-content: center;
   margin: 10px;
 }
-
-.status-bar {
-  align-content: space-evenly;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.game-container {
-  align-content: space-evenly;
-  background-color: #282c34;
-  border-radius: 10px;
-  display: flex;
-  filter: drop-shadow(0 0 0.75rem crimson);
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  margin: 10px;
-  max-width: 400px;
-  max-height: 450px;
-  min-width: 400px;
-  min-height: 450px;
-}
-
 
 @keyframes App-logo-spin {
   from {
