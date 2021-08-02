@@ -38,6 +38,7 @@ function GameContainer() {
     const [gameStart, setGameStart] = useState(false);
 
     useEffect(() => {
+        console.log(field);
         console.log(gameStart);
         let interval = null;
         if (gameStart) {
@@ -55,10 +56,7 @@ function GameContainer() {
     const updateField = (fieldCopy, index) => {
         if (fieldCopy[index] === 'M') {
             fieldCopy[index] = 'MO';
-            if (time === 0) {
-                setGameStart(false);
-            }
-            setGameStart(false);
+            setTimeout(() => setGameStart(prev => !prev), 10);
         } else if(fieldCopy[index] === 0) {
             if (fieldCopy[index][1] !== 'O') {
                 fieldCopy[index] += 'O';
