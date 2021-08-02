@@ -56,12 +56,12 @@ function Game(props) {
     return (
         <>
             <header className="App-header">
-                <p>Minesweeper <img src={logo} className="App-logo" alt="logo" /></p>
-                <p className="status-bar">
+                <div>Minesweeper <img src={logo} className="App-logo" alt="logo" /></div>
+                <div className="status-bar">
                     <span className="bombs-counter">💣{props.counter}</span>
-                    <button className="reset" onClick={props.handleReset}>🙂</button>
+                    <button className="reset" onClick={props.handleReset}>{props.status}</button>
                     <span className="timer">{String(min)}:{renderSeconds(sec)}</span>
-                </p>
+                </div>
             </header>
             <main className="field">
                 {renderField()}

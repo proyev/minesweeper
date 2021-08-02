@@ -34,29 +34,44 @@ function GameContainer() {
 
     const [field, setField] = useState(generateField());
     const [counter, setCounter] = useState(10);
+    const [foundCounter, setFoundCounter] = useState(0);
     const [time, setTime] = useState(0);
+    const [status, setStatus] = useState('🙂');
     const [gameStart, setGameStart] = useState(false);
 
     useEffect(() => {
-        console.log(field);
-        console.log(gameStart);
         let interval = null;
         if (gameStart) {
             interval = setInterval(() => {
-                setTime(prev => prev + 1)
+                setTime(prev => ++prev)
             }, 1000);
         } else {
-            console.log('SHOULD STOP');
             clearInterval(interval);
         }
         return () => clearInterval(interval);
     }, [gameStart]);
+
+    useEffect(() => {
+        console.log('FOUND IT');
+        console.log(foundCounter);
+        if (foundCounter === 10) {
+            setGameStart(false);
+            setStatus('🤩');
+        } else if (foundCounter > 6) {
+            setStatus('😝');
+        } else if  (foundCounter > 4) {
+            setStatus('😜');
+        } else if (foundCounter > 2) {
+            setStatus('😏');
+        }
+    }, [foundCounter]);
 
 
     const updateField = (fieldCopy, index) => {
         if (fieldCopy[index] === 'M') {
             fieldCopy[index] = 'MO';
             setTimeout(() => setGameStart(prev => !prev), 10);
+            setTimeout(() => setStatus('🤯'), 10);
         } else if(fieldCopy[index] === 0) {
             if (fieldCopy[index][1] !== 'O') {
                 fieldCopy[index] += 'O';
@@ -95,11 +110,15 @@ function GameContainer() {
         if (updatedField[index][updatedField[index].length - 1] === 'F') {
             updatedField[index][0] === 'M' ? updatedField[index] = 'M' : updatedField[index] = Number(updatedField[index][0]);
             setField(updatedField);
-            setCounter(prev => prev + 1);
+            setCounter(prev => ++prev);
         }else if (counter > 0) {
             updatedField[index] += 'F';
             setField(updatedField);
-            setCounter(prev => prev - 1);
+            setCounter(prev => --prev);
+            if (updatedField[index] === 'MF') {
+                console.log("FOUND SMTH");
+                setFoundCounter(prev => ++prev);
+            }
         }
     }
 
@@ -109,6 +128,7 @@ function GameContainer() {
         setGameStart(false);
         setField(generateField());
         setCounter(10);
+        setStatus('🙂');
     }
     
     return (
@@ -119,6 +139,7 @@ function GameContainer() {
                    field={field}
                    counter={counter}
                    time={time}
+                   status={status}
             />
         </>
     );
