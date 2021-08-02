@@ -3,15 +3,18 @@ import logo from '../logo.svg';
 
 function Game(props) {
     const min = Math.floor(props.time / 60);
-    let sec = props.time % 60;
-    while (sec < 10) {
-        sec = '0' + sec;
+    const sec = props.time % 60;
+
+    const renderSeconds = sec => {
+        while (sec < 10) {
+            return '0' + sec;
+        }
+        return String(sec);
     }
 
     const renderField = () => {
 
         const cells = props.field.map((cell, index) => {
-
             if (cell === 'MO') {
                 return (
                     <div key={index}
@@ -20,7 +23,6 @@ function Game(props) {
                     </div>
                 );
             } else if (cell[cell.length - 1] === 'O') {
-                console.log(cell);
                 return (
                     <div key={index}
                          className="open"
@@ -58,7 +60,7 @@ function Game(props) {
                 <p className="status-bar">
                     <span className="bombs-counter">💣{props.counter}</span>
                     <button className="reset">🙂</button>
-                    <span className="timer">{String(min)}:{sec}</span>
+                    <span className="timer">{String(min)}:{renderSeconds(sec)}</span>
                 </p>
             </header>
             <main className="field">

@@ -32,23 +32,30 @@ function GameContainer() {
         return field;
     }
 
-    const [field, setField] = useState([]);
+    const [field, setField] = useState(generateField());
     const [counter, setCounter] = useState(10);
     const [time, setTime] = useState(0);
-    const [gameStatus, setGameStatus] = useState({
-        gameOver: false
-    });
+    const [gameStart, setGameStart] = useState(false);
 
     useEffect(() => {
-        setField(generateField());
-    }, []);
+        console.log(gameStart);
+        let interval = null;
+        if (gameStart) {
+            interval = setInterval(() => {
+                setTime(prev => prev + 1)
+            }, 1000);
+        } else {
+            console.log('SHOULD STOP');
+            clearInterval(interval);
+        }
+        return () => clearInterval(interval);
+    }, [gameStart]);
+
 
     const updateField = (fieldCopy, index) => {
         if (fieldCopy[index] === 'M') {
-            setGameStatus({
-                gameOver: true
-            });
             fieldCopy[index] = 'MO';
+            setGameStart(false);
         } else if(fieldCopy[index] === 0) {
             if (fieldCopy[index][1] !== 'O') {
                 fieldCopy[index] += 'O';
@@ -72,19 +79,16 @@ function GameContainer() {
     }
 
     const handleClick = (event, index) => {
-        // if (time === 0) {
-        //     setInterval(() => setTime(prev => prev + 1), 1000);
-        // }
         event.preventDefault();
         let updatedField = field.slice();
         updatedField = updateField(updatedField, index);
         setField(updatedField);
+        if (!time) {
+            setGameStart(true);
+        }
     }
 
     const handleRightClick = (event, index) => {
-        // if (time === 0) {
-        //     setInterval(() => setTime(prev => prev + 1), 1000);
-        // }
         event.preventDefault();
         const updatedField = field.slice();
         if (updatedField[index][updatedField[index].length - 1] === 'F') {
