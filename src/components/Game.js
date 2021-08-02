@@ -2,6 +2,11 @@ import React, {useState} from "react";
 import logo from '../logo.svg';
 
 function Game(props) {
+    const min = Math.floor(props.time / 60);
+    let sec = props.time % 60;
+    while (sec < 10) {
+        sec = '0' + sec;
+    }
 
     const renderField = () => {
 
@@ -14,7 +19,7 @@ function Game(props) {
                     >
                     </div>
                 );
-            } else if (cell[1] === 'O') {
+            } else if (cell[cell.length - 1] === 'O') {
                 console.log(cell);
                 return (
                     <div key={index}
@@ -25,7 +30,7 @@ function Game(props) {
                         </p>
                     </div>
                 );
-            } else if (cell === 'F') {
+            } else if (cell[cell.length - 1] === 'F') {
                 return (
                     <div key={index}
                          className="target"
@@ -53,7 +58,7 @@ function Game(props) {
                 <p className="status-bar">
                     <span className="bombs-counter">💣{props.counter}</span>
                     <button className="reset">🙂</button>
-                    <span className="timer">{props.time}</span>
+                    <span className="timer">{String(min)}:{sec}</span>
                 </p>
             </header>
             <main className="field">

@@ -27,7 +27,6 @@ function GameContainer() {
                  if (!isTopRow && !isLeftEdge && field[i-1-fieldWidth] === 'M') cellScore++;
                  if (!isBottomRow && !isLeftEdge && field[i-1+fieldWidth] === 'M') cellScore++;
                  field[i] = cellScore;
-                 console.log(`${i} :: ${field[i]}`);
              }
         }
         return field;
@@ -35,7 +34,7 @@ function GameContainer() {
 
     const [field, setField] = useState([]);
     const [counter, setCounter] = useState(10);
-    const [time, setTime] = useState('0:00');
+    const [time, setTime] = useState(0);
     const [gameStatus, setGameStatus] = useState({
         gameOver: false
     });
@@ -44,46 +43,56 @@ function GameContainer() {
         setField(generateField());
     }, []);
 
-    const handleClick = (event, index) => {
-        event.preventDefault();
-        const updatedField = field.slice();
-        if (updatedField[index] === 'M') {
-            console.log('YOU LOST');
+    const updateField = (fieldCopy, index) => {
+        if (fieldCopy[index] === 'M') {
             setGameStatus({
                 gameOver: true
             });
-            updatedField[index] = 'MO';
-        } else if(updatedField[index]) {
-            updatedField[index] += 'O';
-            console.log(updatedField[index]);
-        } else {
-            updatedField[index] += 'O';
-            setField(updatedField);
+            fieldCopy[index] = 'MO';
+        } else if(fieldCopy[index] === 0) {
+            if (fieldCopy[index][1] !== 'O') {
+                fieldCopy[index] += 'O';
+            }
             const isLeftEdge = (index % fieldWidth === 0);
             const isRightEdge = (index % fieldWidth === fieldWidth - 1);
             const isTopRow = ((index - fieldWidth) < 0);
             const isBottomRow = ((index + fieldWidth) > field.length);
-            if (!isLeftEdge && field[index-1] === 0) handleClick(event, index-1);
-            if (!isRightEdge && field[index+1] === 0) handleClick(event, index+1);
-            if (!isTopRow && field[index-fieldWidth] === 0) handleClick(event, index-fieldWidth);
-            if (!isBottomRow && field[index+fieldWidth] === 0) handleClick(event, index+fieldWidth);
-            if (!isTopRow && !isRightEdge && field[index+1-fieldWidth] === 0) handleClick(event, index+1-fieldWidth);
-            if (!isBottomRow && !isRightEdge && field[index+1+fieldWidth] === 0) handleClick(event, index+1+fieldWidth);
-            if (!isTopRow && !isLeftEdge && field[index-1-fieldWidth] === 0) handleClick(event, index-1-fieldWidth);
-            if (!isBottomRow && !isLeftEdge && field[index-1+fieldWidth] === 0) handleClick(event, index-1+fieldWidth);
+            if (!isLeftEdge) updateField(fieldCopy, index-1);
+            if (!isRightEdge) updateField(fieldCopy, index+1);
+            if (!isTopRow) updateField(fieldCopy, index-fieldWidth);
+            if (!isBottomRow) updateField(fieldCopy, index+fieldWidth);
+            if (!isTopRow && !isRightEdge) updateField(fieldCopy, index+1-fieldWidth);
+            if (!isBottomRow && !isRightEdge) updateField(fieldCopy, index+1+fieldWidth);
+            if (!isTopRow && !isLeftEdge) updateField(fieldCopy, index-1-fieldWidth);
+            if (!isBottomRow && !isLeftEdge) updateField(fieldCopy, index-1+fieldWidth);
+        } else if (typeof fieldCopy[index] === 'number') {
+            fieldCopy[index] += 'O';
         }
+        return fieldCopy;
+    }
+
+    const handleClick = (event, index) => {
+        // if (time === 0) {
+        //     setInterval(() => setTime(prev => prev + 1), 1000);
+        // }
+        event.preventDefault();
+        let updatedField = field.slice();
+        updatedField = updateField(updatedField, index);
         setField(updatedField);
     }
 
     const handleRightClick = (event, index) => {
+        // if (time === 0) {
+        //     setInterval(() => setTime(prev => prev + 1), 1000);
+        // }
         event.preventDefault();
         const updatedField = field.slice();
-        if(updatedField[index] === 'F') {
-            updatedField[index] = null;
+        if (updatedField[index][updatedField[index].length - 1] === 'F') {
+            updatedField[index][0] === 'M' ? updatedField[index] = 'M' : updatedField[index] = Number(updatedField[index][0]);
             setField(updatedField);
             setCounter(prev => prev + 1);
         }else if (counter > 0) {
-            updatedField[index] = 'F';
+            updatedField[index] += 'F';
             setField(updatedField);
             setCounter(prev => prev - 1);
         }
