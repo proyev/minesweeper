@@ -6,9 +6,17 @@ function GameContainer() {
 
     const generateField = () => {
         const field = Array(72).fill(null);
-        for (let i = 0; i < 10; i++) {
+        let i = 0;
+        while (i < 10) {
             const randomIndex = Math.floor(Math.random() * 72);
+            if (field[randomIndex] === 'M') {
+                continue;
+            }
             field[randomIndex] = 'M';
+            console.log(`${randomIndex}`);
+            console.log(i);
+            console.log(`${field[randomIndex]}`);
+            i++;
         }
 
         for (let i = 0; i < field.length; i++) {
@@ -32,7 +40,7 @@ function GameContainer() {
         return field;
     }
 
-    const [field, setField] = useState(generateField());
+    const [field, setField] = useState([]);
     const [counter, setCounter] = useState(10);
     const [foundCounter, setFoundCounter] = useState(0);
     const [time, setTime] = useState(0);
@@ -51,6 +59,10 @@ function GameContainer() {
         }
         return () => clearInterval(interval);
     }, [gameStart]);
+
+    useEffect(() => {
+        setField(generateField());
+    }, []);
 
     useEffect(() => {
         console.log('FOUND IT');
