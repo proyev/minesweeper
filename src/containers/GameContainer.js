@@ -77,8 +77,8 @@ function GameContainer() {
     const updateField = (fieldCopy, index) => {
         if (fieldCopy[index] === 'M') {
             fieldCopy[index] = 'MO';
-            setTimeout(() => setGameStart(prev => !prev), 10);
-            setTimeout(() => setStatus('🤯'), 10);
+            setTimeout(() => setGameStart(prev => !prev), 0);
+            setTimeout(() => setStatus('🤯'), 0);
             setDisabledField(true);
         } else if(fieldCopy[index] === 0) {
             if (fieldCopy[index][1] !== 'O') {
@@ -119,7 +119,12 @@ function GameContainer() {
         if (!disabledField) {
             const updatedField = field.slice();
             if (updatedField[index][updatedField[index].length - 1] === 'F') {
-                updatedField[index][0] === 'M' ? updatedField[index] = 'M' : updatedField[index] = Number(updatedField[index][0]);
+                if (updatedField[index][0] === 'M') {
+                    setFoundCounter(prev => --prev);
+                    updatedField[index] = 'M';
+                } else {
+                    updatedField[index] = Number(updatedField[index][0]);
+                }
                 setField(updatedField);
                 setCounter(prev => ++prev);
             }else if (counter > 0) {
@@ -137,11 +142,11 @@ function GameContainer() {
     const handleReset = (event) => {
         event.preventDefault();
         setTime(0);
-        setGameStart(false);
-        setField(generateField());
         setCounter(10);
         setStatus('🙂');
+        setField(generateField());
         setDisabledField(false);
+        setGameStart(false);
     }
     
     return (
