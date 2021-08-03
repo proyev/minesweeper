@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import logo from '../logo.svg';
 
 function Game(props) {
@@ -27,7 +27,7 @@ function Game(props) {
                          className="open"
                     >
                         <p>
-                            {props.field[index][0] == 0 ? null : props.field[index][0]}
+                            {Number(props.field[index][0]) === 0 ? null : props.field[index][0]}
                         </p>
                     </div>
                 );

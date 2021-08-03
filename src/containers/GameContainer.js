@@ -38,12 +38,13 @@ function GameContainer() {
     }
 
     const [field, setField] = useState([]);
+    const [disabledField, setDisabledField] = useState(false);
     const [counter, setCounter] = useState(10);
     const [foundCounter, setFoundCounter] = useState(0);
+    const [openCellsCounter, setOpenCellsCounter] = useState(0);
     const [time, setTime] = useState(0);
     const [status, setStatus] = useState('🙂');
     const [gameStart, setGameStart] = useState(false);
-    const [disabledField, setDisabledField] = useState(false);
 
     useEffect(() => {
         let interval = null;
@@ -62,11 +63,11 @@ function GameContainer() {
     }, []);
 
     useEffect(() => {
-        if (foundCounter === 10) {
+        if (openCellsCounter === 62 && foundCounter === 10) {
             setGameStart(false);
             setDisabledField(true);
             setStatus('🤩');
-        } else if (foundCounter > 6) {
+        }else if (foundCounter > 6) {
             setStatus('😝');
         } else if  (foundCounter > 4) {
             setStatus('😜');
@@ -74,6 +75,14 @@ function GameContainer() {
             setStatus('😏');
         }
     }, [foundCounter]);
+
+    useEffect(() => {
+        if (openCellsCounter === 62 && foundCounter === 10) {
+            setGameStart(false);
+            setDisabledField(true);
+            setStatus('🤩');
+        }
+    }, [openCellsCounter]);
 
     const updateField = (fieldCopy, index) => {
         if (fieldCopy[index] === 'M') {
@@ -84,6 +93,7 @@ function GameContainer() {
         } else if(fieldCopy[index] === 0) {
             if (fieldCopy[index][fieldCopy[index].length - 1] !== 'O') {
                 fieldCopy[index] += 'O';
+                setOpenCellsCounter(prev => ++prev);
             }
             const isLeftEdge = (index % fieldWidth === 0);
             const isRightEdge = (index % fieldWidth === fieldWidth - 1);
@@ -99,6 +109,7 @@ function GameContainer() {
             if (!isBottomRow && !isLeftEdge) updateField(fieldCopy, index-1+fieldWidth);
         } else if (typeof fieldCopy[index] === 'number') {
             fieldCopy[index] += 'O';
+            setOpenCellsCounter(prev => ++prev);
         }
         return fieldCopy;
     }
@@ -143,6 +154,8 @@ function GameContainer() {
         event.preventDefault();
         setTime(0);
         setCounter(10);
+        setFoundCounter(0);
+        setOpenCellsCounter(0);
         setStatus('🙂');
         setField(generateField());
         setDisabledField(false);
