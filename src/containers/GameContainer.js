@@ -38,6 +38,7 @@ function GameContainer() {
     const [time, setTime] = useState(0);
     const [status, setStatus] = useState('🙂');
     const [gameStart, setGameStart] = useState(false);
+    const [disabledField, setDisabledField] = useState(false);
 
     useEffect(() => {
         let interval = null;
@@ -56,6 +57,7 @@ function GameContainer() {
         console.log(foundCounter);
         if (foundCounter === 10) {
             setGameStart(false);
+            setDisabledField(true);
             setStatus('🤩');
         } else if (foundCounter > 6) {
             setStatus('😝');
@@ -66,12 +68,18 @@ function GameContainer() {
         }
     }, [foundCounter]);
 
+    useEffect(() => {
+        console.log(`DISABLED FIELD ${disabledField}`)
+        console.log(disabledField);
+    }, [disabledField]);
+
 
     const updateField = (fieldCopy, index) => {
         if (fieldCopy[index] === 'M') {
             fieldCopy[index] = 'MO';
             setTimeout(() => setGameStart(prev => !prev), 10);
             setTimeout(() => setStatus('🤯'), 10);
+            setDisabledField(true);
         } else if(fieldCopy[index] === 0) {
             if (fieldCopy[index][1] !== 'O') {
                 fieldCopy[index] += 'O';
@@ -96,29 +104,33 @@ function GameContainer() {
 
     const handleClick = (event, index) => {
         event.preventDefault();
-        let updatedField = field.slice();
-        updatedField = updateField(updatedField, index);
-        setField(updatedField);
-        if (!time) {
-            setGameStart(true);
+        if (!disabledField) {
+            let updatedField = field.slice();
+            updatedField = updateField(updatedField, index);
+            setField(updatedField);
+            if (!time) {
+                setGameStart(true);
+            }
         }
     }
 
     const handleRightClick = (event, index) => {
         event.preventDefault();
-        const updatedField = field.slice();
-        if (updatedField[index][updatedField[index].length - 1] === 'F') {
-            updatedField[index][0] === 'M' ? updatedField[index] = 'M' : updatedField[index] = Number(updatedField[index][0]);
-            setField(updatedField);
-            setCounter(prev => ++prev);
-        }else if (counter > 0) {
-            updatedField[index] += 'F';
-            setField(updatedField);
-            setCounter(prev => --prev);
-            if (updatedField[index] === 'MF') {
-                console.log("FOUND SMTH");
-                setFoundCounter(prev => ++prev);
-            }
+        if (!disabledField) {
+            const updatedField = field.slice();
+            if (updatedField[index][updatedField[index].length - 1] === 'F') {
+                updatedField[index][0] === 'M' ? updatedField[index] = 'M' : updatedField[index] = Number(updatedField[index][0]);
+                setField(updatedField);
+                setCounter(prev => ++prev);
+            }else if (counter > 0) {
+                updatedField[index] += 'F';
+                setField(updatedField);
+                setCounter(prev => --prev);
+                if (updatedField[index] === 'MF') {
+                    console.log("FOUND SMTH");
+                    setFoundCounter(prev => ++prev);
+                }
+            }  
         }
     }
 
@@ -129,6 +141,7 @@ function GameContainer() {
         setField(generateField());
         setCounter(10);
         setStatus('🙂');
+        setDisabledField(false);
     }
     
     return (
