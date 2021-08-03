@@ -13,7 +13,6 @@ function Game(props) {
     }
 
     const renderField = () => {
-
         const cells = props.field.map((cell, index) => {
             if (cell === 'MO') {
                 return (

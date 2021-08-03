@@ -13,9 +13,6 @@ function GameContainer() {
                 continue;
             }
             field[randomIndex] = 'M';
-            console.log(`${randomIndex}`);
-            console.log(i);
-            console.log(`${field[randomIndex]}`);
             i++;
         }
 
@@ -65,8 +62,6 @@ function GameContainer() {
     }, []);
 
     useEffect(() => {
-        console.log('FOUND IT');
-        console.log(foundCounter);
         if (foundCounter === 10) {
             setGameStart(false);
             setDisabledField(true);
@@ -80,20 +75,14 @@ function GameContainer() {
         }
     }, [foundCounter]);
 
-    useEffect(() => {
-        console.log(`DISABLED FIELD ${disabledField}`)
-        console.log(disabledField);
-    }, [disabledField]);
-
-
     const updateField = (fieldCopy, index) => {
         if (fieldCopy[index] === 'M') {
-            fieldCopy[index] = 'MO';
+            fieldCopy[index] += 'O';
             setTimeout(() => setGameStart(prev => !prev), 0);
             setTimeout(() => setStatus('🤯'), 0);
             setDisabledField(true);
         } else if(fieldCopy[index] === 0) {
-            if (fieldCopy[index][1] !== 'O') {
+            if (fieldCopy[index][fieldCopy[index].length - 1] !== 'O') {
                 fieldCopy[index] += 'O';
             }
             const isLeftEdge = (index % fieldWidth === 0);
@@ -144,7 +133,6 @@ function GameContainer() {
                 setField(updatedField);
                 setCounter(prev => --prev);
                 if (updatedField[index] === 'MF') {
-                    console.log("FOUND SMTH");
                     setFoundCounter(prev => ++prev);
                 }
             }  
