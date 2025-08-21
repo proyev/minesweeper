@@ -1,70 +1,151 @@
-# Getting Started with Create React App
+# Minesweeper
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, responsive implementation of the classic Minesweeper puzzle game built with React. Features a sleek dark theme, smooth animations, and all the traditional gameplay mechanics you know and love.
 
-## Available Scripts
+## ✨ Features
 
-In the project directory, you can run:
+- **Classic Minesweeper Gameplay**: 8×9 grid with 10 hidden mines
+- **Interactive Controls**: Left-click to reveal, right-click to flag
+- **Smart Auto-Reveal**: Automatically reveals adjacent empty cells
+- **Real-Time Timer**: Track your solving speed
+- **Bomb Counter**: Keep track of remaining mines
+- **Visual Feedback**: Animated status indicators and hover effects
+- **Responsive Design**: Optimized for different screen sizes
+- **Modern UI**: Dark theme with custom typography and glowing effects
+- **Game States**: Win, lose, and progress tracking
+- **Reset Functionality**: Start fresh anytime
 
-### `npm start`
+## 🎮 How to Play
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Controls
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **Left Click**: Reveal a cell
+- **Right Click**: Flag/unflag a suspected mine
+- **Reset Button**: Start a new game (click the emoji)
 
-### `npm test`
+### Objective
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Clear all safe cells** without hitting a mine
+2. **Flag all 10 mines** correctly
+3. **Complete as quickly as possible** for the best time
 
-### `npm run build`
+### Game Elements
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Numbers**: Show how many mines are adjacent to that cell
+- **Flags**: Mark cells you suspect contain mines
+- **Empty cells**: Safe areas with no adjacent mines
+- **Mines**: Game over if revealed!
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## �📁 Project Structure
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+minesweeper/
+│
+├── public/
+│   ├── index.html          # Main HTML template
+│   ├── manifest.json       # PWA configuration
+│   ├── robots.txt          # Search engine directives
+│   └── favicon.ico         # App icon
+│
+├── src/
+│   ├── components/
+│   │   └── Game.js         # Game presentation component
+│   ├── containers/
+│   │   └── GameContainer.js # Game logic and state management
+│   ├── App.js              # Main application component
+│   ├── App.css             # Application styling
+│   ├── index.js            # React entry point
+│   ├── index.css           # Global styles
+│   ├── fired.svg           # Mine explosion icon
+│   ├── target.svg          # Flag icon
+│   └── logo.svg            # React logo
+│
+├── package.json            # Dependencies and scripts
+└── README.md              # Project documentation
+```
 
-### `npm run eject`
+## 🚀 Getting Started
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Prerequisites
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Node.js** (version 14 or higher)
+- **npm** or **yarn** package manager
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Installation
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. **Clone the repository**
 
-## Learn More
+   ```bash
+   git clone <repository-url>
+   cd minesweeper
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+2. **Install dependencies**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-### Code Splitting
+3. **Start the development server**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+   ```bash
+   npm start
+   # or
+   yarn start
+   ```
 
-### Analyzing the Bundle Size
+4. **Open your browser** to `http://localhost:3000`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Build for Production
 
-### Making a Progressive Web App
+```bash
+npm run build
+# or
+yarn build
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+This creates an optimized production build in the `build` folder.
 
-### Advanced Configuration
+## �️ Technology Stack
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- **React 17.0.2**: Core framework with hooks
+- **Create React App**: Development and build tooling
+- **CSS3**: Custom styling with animations and gradients
+- **Google Fonts**: Zen Tokyo Zoo typography
+- **SVG Icons**: Custom mine and flag graphics
+- **Jest & React Testing Library**: Testing framework (configured)
 
-### Deployment
+## 🧠 Game Logic
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Field Generation
 
-### `npm run build` fails to minify
+- **72 cells** arranged in an 8×9 grid
+- **10 mines** randomly distributed
+- **Adjacent counts** calculated for each safe cell
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Game States
+
+```javascript
+// Cell states
+"M"; // Hidden mine
+"0-8"; // Number of adjacent mines
+"MO"; // Revealed mine (game over)
+"0O"; // Revealed safe cell
+"MF"; // Flagged mine
+"0F"; // Flagged safe cell
+```
+
+### Status Indicators
+
+- **🙂** - Ready to play
+- **😄** - Making progress (2+ mines found)
+- **😜** - Doing well (4+ mines found)
+- **😎** - Almost there (6+ mines found)
+- **🤩** - Victory!
+- **🤯** - Game over
+
+### Auto-Reveal Algorithm
+
+When a cell with 0 adjacent mines is clicked, the game automatically reveals all connected empty cells using a recursive flood-fill algorithm.
